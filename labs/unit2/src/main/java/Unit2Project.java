@@ -15,7 +15,7 @@ import java.util.Queue;
  * <p>This project demonstrates common queue and stack operations
  * including adding, previewing, processing, and undoing actions.</p>
  *
- * @author First Last
+ * @author Ron Gridley
  * @version 1.0
  */
 public class Unit2Project {
@@ -32,7 +32,12 @@ public class Unit2Project {
      * @throws IllegalArgumentException if the ticket is null or empty
      */
     public void addTicket(String ticket) {
-        //TODO
+        //TODO 
+        if (ticket == null || ticket.trim().isEmpty()) {
+            throw new IllegalArgumentException("Ticket cannot be null or empty.");
+         }     
+
+        ticketQueue.offer(ticket);
     }
 
     /**
@@ -46,7 +51,11 @@ public class Unit2Project {
      */
     public String peekNextTicket() {
         //TODO
-        return null;
+            if (ticketQueue.isEmpty()) {
+                return "No tickets available.";
+            }
+
+            return ticketQueue.peek();
     }
 
     /**
@@ -59,8 +68,17 @@ public class Unit2Project {
      *         "No tickets to process." if the queue is empty
      */
     public String processNextTicket() {
-        //TODO
-        return null;
+        //TODO 
+        if (ticketQueue.isEmpty()) {
+            return "No tickets to process.";
+        }
+
+        String processedTicket = ticketQueue.poll();
+
+        // Store the ticket itself as the action history entry.
+        actionStack.push("Processed ticket: " + processedTicket);
+
+        return processedTicket;
     }
 
     /**
@@ -74,7 +92,11 @@ public class Unit2Project {
      */
     public String undoLastAction() {
         //TODO
-        return null;
+        if (actionStack.isEmpty()) {
+            return "No actions to undo.";
+        }
+
+        return actionStack.pop();
     }
 
 
